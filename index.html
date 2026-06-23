@@ -164,18 +164,17 @@
   :root{
     --c-green:#02d488;
     --c-blue:#3b6ef6;
-    --c-amber:#f5a623;
   }
   /* scroll progress */
-  .progress{height:3px;background:linear-gradient(90deg,var(--c-green),var(--c-blue),var(--c-amber));background-size:200% 100%;animation:hue 9s linear infinite}
+  .progress{height:3px;background:linear-gradient(90deg,var(--c-green),var(--c-blue),var(--c-green));background-size:200% 100%;animation:hue 9s linear infinite}
   @keyframes hue{from{background-position:0 0}to{background-position:200% 0}}
-  /* per-section accent colour (green · blue · amber cycle) */
+  /* per-section accent colour (green · blue cycle) */
   #hero{--sec:var(--c-green)}
   #mission{--sec:var(--c-blue)}
-  #capabilities{--sec:var(--c-amber)}
-  #products{--sec:var(--c-green)}
-  #team{--sec:var(--c-blue)}
-  #press{--sec:var(--c-amber)}
+  #capabilities{--sec:var(--c-green)}
+  #products{--sec:var(--c-blue)}
+  #team{--sec:var(--c-green)}
+  #press{--sec:var(--c-blue)}
   #company{--sec:var(--c-green)}
   #contact{--sec:var(--c-blue)}
   /* coloured kicker index + rule */
@@ -193,25 +192,22 @@
   .marquee .run span{transition:color .3s}
   .marquee .c-g{color:var(--c-green);font-weight:500}
   .marquee .c-b{color:var(--c-blue);font-weight:500}
-  .marquee .c-c{color:var(--c-amber);font-weight:500}
-  .marquee .c-p{color:var(--c-blue);font-weight:500}
-  .marquee .c-a{color:var(--c-green);font-weight:500}
   /* mission ledger — coloured stats */
   .ledger .row .n{transition:color .3s}
   .ledger .row:nth-child(1) .n{color:var(--c-green)}
   .ledger .row:nth-child(2) .n{color:var(--c-blue)}
-  .ledger .row:nth-child(3) .n{color:var(--c-amber)}
-  .ledger .row:nth-child(4) .n{color:var(--c-green)}
+  .ledger .row:nth-child(3) .n{color:var(--c-green)}
+  .ledger .row:nth-child(4) .n{color:var(--c-blue)}
   .steps .s:nth-child(1) .t{color:var(--c-green)}
   .steps .s:nth-child(2) .t{color:var(--c-blue)}
-  .steps .s:nth-child(3) .t{color:var(--c-amber)}
+  .steps .s:nth-child(3) .t{color:var(--c-green)}
   /* capabilities — rotating accent + lively hover */
   .index .it{--c:var(--c-green)}
   .index .it:nth-child(2){--c:var(--c-blue)}
-  .index .it:nth-child(3){--c:var(--c-amber)}
-  .index .it:nth-child(4){--c:var(--c-green)}
-  .index .it:nth-child(5){--c:var(--c-blue)}
-  .index .it:nth-child(6){--c:var(--c-amber)}
+  .index .it:nth-child(3){--c:var(--c-green)}
+  .index .it:nth-child(4){--c:var(--c-blue)}
+  .index .it:nth-child(5){--c:var(--c-green)}
+  .index .it:nth-child(6){--c:var(--c-blue)}
   .index .it .no{color:var(--c);font-weight:500}
   .index .it:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 46%)}
   .index .it:hover h3{color:var(--c)}
@@ -220,28 +216,28 @@
   .prod:hover{transform:translateY(-4px);box-shadow:0 20px 44px -26px rgba(22,22,15,.55)}
   .prod:nth-child(1) .tag{color:var(--c-green)}
   .prod:nth-child(2) .tag{color:var(--c-blue)}
-  .prod:nth-child(3) .tag{color:var(--c-amber)}
-  .prod:nth-child(4) .tag{color:var(--c-green)}
+  .prod:nth-child(3) .tag{color:var(--c-green)}
+  .prod:nth-child(4) .tag{color:var(--c-blue)}
   .barline .b .track i{height:3px;top:-1px;background:linear-gradient(90deg,var(--c-green),var(--c-blue))}
   .barline .b .pc{color:var(--c-green)}
   .figs .f:nth-child(1) b{color:var(--c-green)}
   .figs .f:nth-child(2) b{color:var(--c-blue)}
-  .figs .f:nth-child(3) b{color:var(--c-amber)}
-  .figs .f:nth-child(4) b{color:var(--c-green)}
+  .figs .f:nth-child(3) b{color:var(--c-green)}
+  .figs .f:nth-child(4) b{color:var(--c-blue)}
   /* team — rotating accent, hover wash */
   .team .p{--c:var(--c-green)}
   .team .p:nth-child(2){--c:var(--c-blue)}
-  .team .p:nth-child(3){--c:var(--c-amber)}
+  .team .p:nth-child(3){--c:var(--c-green)}
   .team .p .ro{color:var(--c);-webkit-text-stroke:0}
   .team .p:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 46%)}
   .team .p:hover .nm{color:var(--c)}
   /* press — rotating accent, coloured arrow */
   .press a{--c:var(--c-green)}
   .press a:nth-child(2){--c:var(--c-blue)}
-  .press a:nth-child(3){--c:var(--c-amber)}
-  .press a:nth-child(4){--c:var(--c-green)}
-  .press a:nth-child(5){--c:var(--c-blue)}
-  .press a:nth-child(6){--c:var(--c-amber)}
+  .press a:nth-child(3){--c:var(--c-green)}
+  .press a:nth-child(4){--c:var(--c-blue)}
+  .press a:nth-child(5){--c:var(--c-green)}
+  .press a:nth-child(6){--c:var(--c-blue)}
   .press a .go{color:var(--c);transition:transform .3s}
   .press a:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 46%)}
   .press a:hover .go{transform:translate(4px,-2px)}
@@ -278,8 +274,8 @@
     <canvas id="wave"></canvas>
     <div class="wrap">
       <div class="hero-top">
-        <div class="hero-meta">Behavioral AI<br/>Ostrava · Prague</div>
-        <div class="hero-meta" style="text-align:right">Gaming &amp; dual-use<br/>Est. MMVI</div>
+        <div class="hero-meta">Behavioral AI<br/>Ostrava, Czechia</div>
+        <div class="hero-meta" style="text-align:right">Gaming &amp; dual-use</div>
       </div>
       <h1 class="rv">We predict <em>human behavior</em> under pressure.</h1>
       <div class="hero-foot">
@@ -295,8 +291,8 @@
   <section class="band">
     <div class="marquee">
       <div class="run">
-        <span class="c-g">Behavioral AI</span><span>—</span><span class="c-b">Simulation data</span><span>—</span><span class="c-c">Decision under pressure</span><span>—</span><span class="c-p">GPRT model</span><span>—</span><span class="c-c">Mesocort</span><span>—</span><span class="c-a">Dual-use</span><span>—</span><span class="c-b">Drone AAR</span><span>—</span><span class="c-g">Rankacy</span><span>—</span>
-        <span class="c-g">Behavioral AI</span><span>—</span><span class="c-b">Simulation data</span><span>—</span><span class="c-c">Decision under pressure</span><span>—</span><span class="c-p">GPRT model</span><span>—</span><span class="c-c">Mesocort</span><span>—</span><span class="c-a">Dual-use</span><span>—</span><span class="c-b">Drone AAR</span><span>—</span><span class="c-g">Rankacy</span><span>—</span>
+        <span class="c-g">Behavioral AI</span><span>—</span><span class="c-b">Simulation data</span><span>—</span><span class="c-g">Decision under pressure</span><span>—</span><span class="c-b">GPRT model</span><span>—</span><span class="c-g">Mesocort</span><span>—</span><span class="c-b">Dual-use</span><span>—</span><span class="c-g">Drone AAR</span><span>—</span><span class="c-b">Rankacy</span><span>—</span>
+        <span class="c-g">Behavioral AI</span><span>—</span><span class="c-b">Simulation data</span><span>—</span><span class="c-g">Decision under pressure</span><span>—</span><span class="c-b">GPRT model</span><span>—</span><span class="c-g">Mesocort</span><span>—</span><span class="c-b">Dual-use</span><span>—</span><span class="c-g">Drone AAR</span><span>—</span><span class="c-b">Rankacy</span><span>—</span>
       </div>
     </div>
   </section>
