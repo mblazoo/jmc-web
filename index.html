@@ -103,7 +103,7 @@
   .index .it p{color:var(--ink-soft);font-size:15.5px;max-width:48ch}
   @media(max-width:760px){.index .it{grid-template-columns:40px 1fr}.index .it p{grid-column:1/-1}}
   /* ---------- PRODUCTS ---------- */
-  .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:50px}
+  .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:50px}
   @media(max-width:860px){.prod-grid{grid-template-columns:1fr}}
   .prod{background:var(--paper);padding:clamp(28px,3.4vw,44px)}
   .prod .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
@@ -157,6 +157,106 @@
   #contact .btn-solid:hover{background:#fff}
   #contact .lnk{border-color:rgba(238,243,239,.6)}
   footer{margin-top:9vh;padding-top:26px;border-top:1px solid rgba(238,243,239,.22);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:rgba(238,243,239,.6);position:relative;z-index:2}
+
+  /* ============================================================
+     COLOR & UX LAYER — playful multi-accent palette + interactions
+     ============================================================ */
+  :root{
+    --c-green:#02d488;
+    --c-blue:#3b6ef6;
+    --c-coral:#ff6a3d;
+    --c-amber:#f5a623;
+    --c-purple:#8b5cf6;
+  }
+  /* rainbow scroll progress */
+  .progress{height:3px;background:linear-gradient(90deg,var(--c-green),var(--c-blue),var(--c-purple),var(--c-coral),var(--c-amber));background-size:200% 100%;animation:hue 9s linear infinite}
+  @keyframes hue{from{background-position:0 0}to{background-position:200% 0}}
+  /* per-section accent colour */
+  #hero{--sec:var(--c-green)}
+  #mission{--sec:var(--c-blue)}
+  #capabilities{--sec:var(--c-coral)}
+  #products{--sec:var(--c-amber)}
+  #team{--sec:var(--c-purple)}
+  #press{--sec:var(--c-green)}
+  #company{--sec:var(--c-blue)}
+  #contact{--sec:var(--c-coral)}
+  /* coloured kicker index + rule */
+  .kicker .idx{color:var(--sec)}
+  .kicker .ln{height:2px;background:linear-gradient(90deg,var(--sec),transparent)}
+  /* nav underline picks up section colour */
+  nav.links a::after{background:var(--c-green)}
+  nav.links a:hover{color:var(--ink)}
+  /* hero ambience — soft colour blobs */
+  #hero{background:
+    radial-gradient(46% 40% at 12% 22%, color-mix(in srgb,var(--c-green) 18%,transparent), transparent 70%),
+    radial-gradient(42% 36% at 88% 6%, color-mix(in srgb,var(--c-blue) 15%,transparent), transparent 70%),
+    radial-gradient(40% 40% at 70% 92%, color-mix(in srgb,var(--c-coral) 10%,transparent), transparent 70%)}
+  h1 em{color:var(--c-green);font-style:italic}
+  /* marquee coloured words */
+  .marquee .run span{transition:color .3s}
+  .marquee .c-g{color:var(--c-green);font-weight:500}
+  .marquee .c-b{color:var(--c-blue);font-weight:500}
+  .marquee .c-c{color:var(--c-coral);font-weight:500}
+  .marquee .c-p{color:var(--c-purple);font-weight:500}
+  .marquee .c-a{color:var(--c-amber);font-weight:500}
+  /* mission ledger — coloured stats */
+  .ledger .row .n{transition:color .3s}
+  .ledger .row:nth-child(1) .n{color:var(--c-green)}
+  .ledger .row:nth-child(2) .n{color:var(--c-blue)}
+  .ledger .row:nth-child(3) .n{color:var(--c-coral)}
+  .ledger .row:nth-child(4) .n{color:var(--c-amber)}
+  .steps .s:nth-child(1) .t{color:var(--c-green)}
+  .steps .s:nth-child(2) .t{color:var(--c-blue)}
+  .steps .s:nth-child(3) .t{color:var(--c-coral)}
+  /* capabilities — rotating accent + lively hover */
+  .index .it{--c:var(--c-green)}
+  .index .it:nth-child(2){--c:var(--c-blue)}
+  .index .it:nth-child(3){--c:var(--c-coral)}
+  .index .it:nth-child(4){--c:var(--c-amber)}
+  .index .it:nth-child(5){--c:var(--c-purple)}
+  .index .it:nth-child(6){--c:var(--c-green)}
+  .index .it .no{color:var(--c);font-weight:500}
+  .index .it:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 16%,transparent),transparent 46%)}
+  .index .it:hover h3{color:var(--c)}
+  /* products — coloured tags, lift on hover, gradient bars */
+  .prod{transition:transform .35s,box-shadow .35s}
+  .prod:hover{transform:translateY(-4px);box-shadow:0 20px 44px -26px rgba(22,22,15,.55)}
+  .prod:nth-child(1) .tag{color:var(--c-amber)}
+  .prod:nth-child(2) .tag{color:var(--c-purple)}
+  .prod:nth-child(3) .tag{color:var(--c-green)}
+  .prod:nth-child(4) .tag{color:var(--c-blue)}
+  .barline .b .track i{height:3px;top:-1px;background:linear-gradient(90deg,var(--c-green),var(--c-blue))}
+  .barline .b .pc{color:var(--c-green)}
+  .figs .f:nth-child(1) b{color:var(--c-green)}
+  .figs .f:nth-child(2) b{color:var(--c-blue)}
+  .figs .f:nth-child(3) b{color:var(--c-coral)}
+  .figs .f:nth-child(4) b{color:var(--c-purple)}
+  /* team — rotating accent, hover wash */
+  .team .p{--c:var(--c-green)}
+  .team .p:nth-child(2){--c:var(--c-blue)}
+  .team .p:nth-child(3){--c:var(--c-purple)}
+  .team .p .ro{color:var(--c);-webkit-text-stroke:0}
+  .team .p:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 46%)}
+  .team .p:hover .nm{color:var(--c)}
+  /* press — rotating accent, coloured arrow */
+  .press a{--c:var(--c-green)}
+  .press a:nth-child(2){--c:var(--c-blue)}
+  .press a:nth-child(3){--c:var(--c-coral)}
+  .press a:nth-child(4){--c:var(--c-amber)}
+  .press a:nth-child(5){--c:var(--c-purple)}
+  .press a:nth-child(6){--c:var(--c-green)}
+  .press a .go{color:var(--c);transition:transform .3s}
+  .press a:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 46%)}
+  .press a:hover .go{transform:translate(4px,-2px)}
+  /* company registry — coloured keys */
+  .reg .c .k{color:var(--sec)}
+  /* contact — richer colour field */
+  #contact{background:
+    radial-gradient(42% 42% at 80% 18%, color-mix(in srgb,var(--c-green) 26%,transparent), transparent 70%),
+    radial-gradient(46% 46% at 8% 86%, color-mix(in srgb,var(--c-blue) 22%,transparent), transparent 70%),
+    var(--accent-deep)}
+  /* respect reduced motion */
+  @media(prefers-reduced-motion:reduce){.progress{animation:none}}
 </style>
 </head>
 <body>
@@ -198,8 +298,8 @@
   <section class="band">
     <div class="marquee">
       <div class="run">
-        <span>Behavioral AI</span><span>—</span><span>Simulation data</span><span>—</span><span><b>Decision under pressure</b></span><span>—</span><span>GPRT model</span><span>—</span><span>Dual-use</span><span>—</span><span>Rankacy</span><span>—</span>
-        <span>Behavioral AI</span><span>—</span><span>Simulation data</span><span>—</span><span><b>Decision under pressure</b></span><span>—</span><span>GPRT model</span><span>—</span><span>Dual-use</span><span>—</span><span>Rankacy</span><span>—</span>
+        <span class="c-g">Behavioral AI</span><span>—</span><span class="c-b">Simulation data</span><span>—</span><span class="c-c">Decision under pressure</span><span>—</span><span class="c-p">GPRT model</span><span>—</span><span class="c-c">Mesocort</span><span>—</span><span class="c-a">Dual-use</span><span>—</span><span class="c-b">Drone AAR</span><span>—</span><span class="c-g">Rankacy</span><span>—</span>
+        <span class="c-g">Behavioral AI</span><span>—</span><span class="c-b">Simulation data</span><span>—</span><span class="c-c">Decision under pressure</span><span>—</span><span class="c-p">GPRT model</span><span>—</span><span class="c-c">Mesocort</span><span>—</span><span class="c-a">Dual-use</span><span>—</span><span class="c-b">Drone AAR</span><span>—</span><span class="c-g">Rankacy</span><span>—</span>
       </div>
     </div>
   </section>
@@ -218,8 +318,8 @@
         </div>
         <div class="ledger rv d2">
           <div class="row"><span class="n" data-count="500" data-suffix=" TB">0</span><span class="l">Behavioral data ≈ half a petabyte</span></div>
-          <div class="row"><span class="n" data-count="6" data-suffix="M">0</span><span class="l">Players analyzed</span></div>
-          <div class="row"><span class="n" data-count="40" data-suffix="K">0</span><span class="l">Active users</span></div>
+          <div class="row"><span class="n" data-count="11" data-suffix="M">0</span><span class="l">Players analyzed</span></div>
+          <div class="row"><span class="n" data-count="75" data-suffix="K">0</span><span class="l">Registered users</span></div>
           <div class="row"><span class="n" data-count="150" data-suffix="+">0</span><span class="l">Countries reached</span></div>
         </div>
       </div>
@@ -244,7 +344,7 @@
   <section id="products">
     <div class="wrap">
       <div class="kicker rv"><span class="idx">03</span><span>Products</span><span class="ln"></span></div>
-      <h2 class="display rv d1" style="margin-top:24px">Two products.<br/>One behavioral core.</h2>
+      <h2 class="display rv d1" style="margin-top:24px">Four products.<br/>One behavioral core.</h2>
       <div class="prod-grid">
         <div class="prod rv d1">
           <div class="tag">Proprietary AI model</div>
@@ -256,18 +356,45 @@
             <div class="b"><span>Objective</span><span class="track"><i data-w="85"></i></span><span class="pc">85%</span></div>
           </div>
           <p style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:18px;text-transform:uppercase">Prediction accuracy · in-game decision tasks</p>
+          <p style="margin-top:22px"><a class="lnk" href="https://mesocort.ai" target="_blank" rel="noopener">Explore GPRT</a></p>
         </div>
         <div class="prod rv d2">
+          <div class="tag">Behavioral foundation research</div>
+          <h3>Mesocort</h3>
+          <p>The <em>limbic system for AGI</em>. Where reasoning models chase System&nbsp;2, Mesocort captures System&nbsp;1 — the fast, instinctive reactions other AI ignores — and trains <em>HUBERT</em> to read limbic states under real pressure.</p>
+          <div class="figs">
+            <div class="f"><b>100M+</b><span>Behavioral situations</span></div>
+            <div class="f"><b>0–300ms</b><span>Prediction window</span></div>
+            <div class="f"><b>5</b><span>Limbic states</span></div>
+            <div class="f"><b>9M</b><span>Players in data</span></div>
+          </div>
+          <p style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:18px;text-transform:uppercase">Flow · Tilt · Clutch · Choke · Panic</p>
+          <p style="margin-top:22px"><a class="lnk" href="https://mesocort.ai" target="_blank" rel="noopener">Open mesocort.ai</a></p>
+        </div>
+        <div class="prod rv d3">
           <div class="tag">Decision-support platform</div>
           <h3>Rankacy</h3>
           <p>A decision-support system that turns hundreds of terabytes of match data into clear feedback. A digital coach — deep analysis, strengths and weaknesses, progression, automatic 4K highlights.</p>
           <div class="figs">
-            <div class="f"><b>40K+</b><span>Active users</span></div>
+            <div class="f"><b>75K+</b><span>Registered users</span></div>
             <div class="f"><b>150+</b><span>Countries</span></div>
-            <div class="f"><b>6M+</b><span>Players analyzed</span></div>
+            <div class="f"><b>11M+</b><span>Players analyzed</span></div>
             <div class="f"><b>40M+</b><span>CS2 audience</span></div>
           </div>
           <p style="margin-top:30px"><a class="lnk" href="https://rankacy.com" target="_blank" rel="noopener">Open rankacy.com</a></p>
+        </div>
+        <div class="prod rv d4">
+          <div class="tag">AI After-Action Review · defense</div>
+          <h3>Drones</h3>
+          <p>Advanced <em>AI-powered after-action review</em> for defense simulations. We capture data from drone simulators and deliver <em>AI live coaching</em> — debriefing every decision the moment it is made, not hours later.</p>
+          <div class="figs">
+            <div class="f"><b>Live</b><span>AI coaching</span></div>
+            <div class="f"><b>AAR</b><span>Automated debrief</span></div>
+            <div class="f"><b>Sim</b><span>Drone simulators</span></div>
+            <div class="f"><b>Dual-use</b><span>Defense-ready</span></div>
+          </div>
+          <p style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:18px;text-transform:uppercase">From the cockpit to the debrief — in real time</p>
+          <p style="margin-top:22px"><a class="lnk" href="https://drones.rankacy.com" target="_blank" rel="noopener">Open drones.rankacy.com</a></p>
         </div>
       </div>
       <p class="lead rv d3" style="margin-top:40px">Next — GPRT for B2B: tools that help studios build safer, fairer games, and decision support for education, healthcare, industry and defense.</p>
@@ -312,8 +439,6 @@
         <div class="c"><div class="k">Identification No. (IČO)</div><div class="v">27631354</div></div>
         <div class="c"><div class="k">VAT ID (DIČ)</div><div class="v">CZ27631354</div></div>
         <div class="c"><div class="k">File reference</div><div class="v">B 11353 · Municipal Court, Prague</div></div>
-        <div class="c"><div class="k">Incorporated</div><div class="v">13 December 2006</div></div>
-        <div class="c"><div class="k">Share capital</div><div class="v">CZK 2,000,000</div></div>
         <div class="c"><div class="k">Registered seat</div><div class="v">Veletržní 1623/24, Holešovice, 170 00 Praha 7</div></div>
         <div class="c"><div class="k">Scope (since 2025)</div><div class="v">Software · IT consulting · data processing · training · virtual-asset services</div></div>
       </div>
@@ -328,7 +453,7 @@
       <h2 class="rv d1">Pressure reveals everyone.<br/>We tell you <em>first</em>.</h2>
       <p class="sub rv d2">Partner with JMC on behavioral data, simulation and dual-use AI — from gaming integrity to high-stakes training.</p>
       <div class="ca rv d3">
-        <a class="btn-solid" href="mailto:contact@jmc.cz">Contact the team</a>
+        <a class="btn-solid" href="mailto:info@rankacy.com">Contact the team</a>
         <a class="lnk" href="https://rankacy.com" target="_blank" rel="noopener">See Rankacy live</a>
       </div>
       <footer>
