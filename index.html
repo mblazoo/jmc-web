@@ -164,96 +164,93 @@
   :root{
     --c-green:#02d488;
     --c-blue:#3b6ef6;
-    --c-coral:#ff6a3d;
     --c-amber:#f5a623;
-    --c-purple:#8b5cf6;
   }
-  /* rainbow scroll progress */
-  .progress{height:3px;background:linear-gradient(90deg,var(--c-green),var(--c-blue),var(--c-purple),var(--c-coral),var(--c-amber));background-size:200% 100%;animation:hue 9s linear infinite}
+  /* scroll progress */
+  .progress{height:3px;background:linear-gradient(90deg,var(--c-green),var(--c-blue),var(--c-amber));background-size:200% 100%;animation:hue 9s linear infinite}
   @keyframes hue{from{background-position:0 0}to{background-position:200% 0}}
-  /* per-section accent colour */
+  /* per-section accent colour (green · blue · amber cycle) */
   #hero{--sec:var(--c-green)}
   #mission{--sec:var(--c-blue)}
-  #capabilities{--sec:var(--c-coral)}
-  #products{--sec:var(--c-amber)}
-  #team{--sec:var(--c-purple)}
-  #press{--sec:var(--c-green)}
-  #company{--sec:var(--c-blue)}
-  #contact{--sec:var(--c-coral)}
+  #capabilities{--sec:var(--c-amber)}
+  #products{--sec:var(--c-green)}
+  #team{--sec:var(--c-blue)}
+  #press{--sec:var(--c-amber)}
+  #company{--sec:var(--c-green)}
+  #contact{--sec:var(--c-blue)}
   /* coloured kicker index + rule */
   .kicker .idx{color:var(--sec)}
   .kicker .ln{height:2px;background:linear-gradient(90deg,var(--sec),transparent)}
-  /* nav underline picks up section colour */
+  /* nav underline */
   nav.links a::after{background:var(--c-green)}
   nav.links a:hover{color:var(--ink)}
   /* hero ambience — soft colour blobs */
   #hero{background:
-    radial-gradient(46% 40% at 12% 22%, color-mix(in srgb,var(--c-green) 18%,transparent), transparent 70%),
-    radial-gradient(42% 36% at 88% 6%, color-mix(in srgb,var(--c-blue) 15%,transparent), transparent 70%),
-    radial-gradient(40% 40% at 70% 92%, color-mix(in srgb,var(--c-coral) 10%,transparent), transparent 70%)}
+    radial-gradient(46% 40% at 12% 22%, color-mix(in srgb,var(--c-green) 16%,transparent), transparent 70%),
+    radial-gradient(42% 36% at 88% 6%, color-mix(in srgb,var(--c-blue) 13%,transparent), transparent 70%)}
   h1 em{color:var(--c-green);font-style:italic}
   /* marquee coloured words */
   .marquee .run span{transition:color .3s}
   .marquee .c-g{color:var(--c-green);font-weight:500}
   .marquee .c-b{color:var(--c-blue);font-weight:500}
-  .marquee .c-c{color:var(--c-coral);font-weight:500}
-  .marquee .c-p{color:var(--c-purple);font-weight:500}
-  .marquee .c-a{color:var(--c-amber);font-weight:500}
+  .marquee .c-c{color:var(--c-amber);font-weight:500}
+  .marquee .c-p{color:var(--c-blue);font-weight:500}
+  .marquee .c-a{color:var(--c-green);font-weight:500}
   /* mission ledger — coloured stats */
   .ledger .row .n{transition:color .3s}
   .ledger .row:nth-child(1) .n{color:var(--c-green)}
   .ledger .row:nth-child(2) .n{color:var(--c-blue)}
-  .ledger .row:nth-child(3) .n{color:var(--c-coral)}
-  .ledger .row:nth-child(4) .n{color:var(--c-amber)}
+  .ledger .row:nth-child(3) .n{color:var(--c-amber)}
+  .ledger .row:nth-child(4) .n{color:var(--c-green)}
   .steps .s:nth-child(1) .t{color:var(--c-green)}
   .steps .s:nth-child(2) .t{color:var(--c-blue)}
-  .steps .s:nth-child(3) .t{color:var(--c-coral)}
+  .steps .s:nth-child(3) .t{color:var(--c-amber)}
   /* capabilities — rotating accent + lively hover */
   .index .it{--c:var(--c-green)}
   .index .it:nth-child(2){--c:var(--c-blue)}
-  .index .it:nth-child(3){--c:var(--c-coral)}
-  .index .it:nth-child(4){--c:var(--c-amber)}
-  .index .it:nth-child(5){--c:var(--c-purple)}
-  .index .it:nth-child(6){--c:var(--c-green)}
+  .index .it:nth-child(3){--c:var(--c-amber)}
+  .index .it:nth-child(4){--c:var(--c-green)}
+  .index .it:nth-child(5){--c:var(--c-blue)}
+  .index .it:nth-child(6){--c:var(--c-amber)}
   .index .it .no{color:var(--c);font-weight:500}
-  .index .it:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 16%,transparent),transparent 46%)}
+  .index .it:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,transparent),transparent 46%)}
   .index .it:hover h3{color:var(--c)}
   /* products — coloured tags, lift on hover, gradient bars */
   .prod{transition:transform .35s,box-shadow .35s}
   .prod:hover{transform:translateY(-4px);box-shadow:0 20px 44px -26px rgba(22,22,15,.55)}
-  .prod:nth-child(1) .tag{color:var(--c-amber)}
-  .prod:nth-child(2) .tag{color:var(--c-purple)}
-  .prod:nth-child(3) .tag{color:var(--c-green)}
-  .prod:nth-child(4) .tag{color:var(--c-blue)}
+  .prod:nth-child(1) .tag{color:var(--c-green)}
+  .prod:nth-child(2) .tag{color:var(--c-blue)}
+  .prod:nth-child(3) .tag{color:var(--c-amber)}
+  .prod:nth-child(4) .tag{color:var(--c-green)}
   .barline .b .track i{height:3px;top:-1px;background:linear-gradient(90deg,var(--c-green),var(--c-blue))}
   .barline .b .pc{color:var(--c-green)}
   .figs .f:nth-child(1) b{color:var(--c-green)}
   .figs .f:nth-child(2) b{color:var(--c-blue)}
-  .figs .f:nth-child(3) b{color:var(--c-coral)}
-  .figs .f:nth-child(4) b{color:var(--c-purple)}
+  .figs .f:nth-child(3) b{color:var(--c-amber)}
+  .figs .f:nth-child(4) b{color:var(--c-green)}
   /* team — rotating accent, hover wash */
   .team .p{--c:var(--c-green)}
   .team .p:nth-child(2){--c:var(--c-blue)}
-  .team .p:nth-child(3){--c:var(--c-purple)}
+  .team .p:nth-child(3){--c:var(--c-amber)}
   .team .p .ro{color:var(--c);-webkit-text-stroke:0}
   .team .p:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 46%)}
   .team .p:hover .nm{color:var(--c)}
   /* press — rotating accent, coloured arrow */
   .press a{--c:var(--c-green)}
   .press a:nth-child(2){--c:var(--c-blue)}
-  .press a:nth-child(3){--c:var(--c-coral)}
-  .press a:nth-child(4){--c:var(--c-amber)}
-  .press a:nth-child(5){--c:var(--c-purple)}
-  .press a:nth-child(6){--c:var(--c-green)}
+  .press a:nth-child(3){--c:var(--c-amber)}
+  .press a:nth-child(4){--c:var(--c-green)}
+  .press a:nth-child(5){--c:var(--c-blue)}
+  .press a:nth-child(6){--c:var(--c-amber)}
   .press a .go{color:var(--c);transition:transform .3s}
   .press a:hover{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 12%,transparent),transparent 46%)}
   .press a:hover .go{transform:translate(4px,-2px)}
   /* company registry — coloured keys */
   .reg .c .k{color:var(--sec)}
-  /* contact — richer colour field */
+  /* contact — colour field */
   #contact{background:
-    radial-gradient(42% 42% at 80% 18%, color-mix(in srgb,var(--c-green) 26%,transparent), transparent 70%),
-    radial-gradient(46% 46% at 8% 86%, color-mix(in srgb,var(--c-blue) 22%,transparent), transparent 70%),
+    radial-gradient(42% 42% at 80% 18%, color-mix(in srgb,var(--c-green) 24%,transparent), transparent 70%),
+    radial-gradient(46% 46% at 8% 86%, color-mix(in srgb,var(--c-blue) 20%,transparent), transparent 70%),
     var(--accent-deep)}
   /* respect reduced motion */
   @media(prefers-reduced-motion:reduce){.progress{animation:none}}
@@ -397,18 +394,17 @@
           <p style="margin-top:22px"><a class="lnk" href="https://drones.rankacy.com" target="_blank" rel="noopener">Open drones.rankacy.com</a></p>
         </div>
       </div>
-      <p class="lead rv d3" style="margin-top:40px">Next — GPRT for B2B: tools that help studios build safer, fairer games, and decision support for education, healthcare, industry and defense.</p>
     </div>
   </section>
   <!-- TEAM -->
   <section id="team">
     <div class="wrap">
       <div class="kicker rv"><span class="idx">04</span><span>The team</span><span class="ln"></span></div>
-      <h2 class="display rv d1" style="margin-top:24px">The people<br/>behind the model.</h2>
+      <h2 class="display rv d1" style="margin-top:24px">The people<br/>behind the company.</h2>
       <div class="team">
-        <div class="p rv d1"><span class="nm">Michael Blažík</span><span class="ro">Founder &amp; CEO</span><p>Built JMC's behavioral-AI venture from zero — raw simulation data to a global platform — bringing top technology and foreign capital into the region.</p></div>
-        <div class="p rv d2"><span class="nm">Jan Plucar</span><span class="ro">Board · AI &amp; Engineering</span><p>Runs the data and ML pipeline — collecting, cleaning and structuring petabyte-scale datasets, and training the GPRT model family.</p></div>
-        <div class="p rv d3"><span class="nm">Miloslav Szczypka</span><span class="ro">Board · Strategy &amp; Operations</span><p>Leads strategy, operations and partnerships — and the push of JMC's dual-use applications beyond gaming.</p></div>
+        <div class="p rv d1"><span class="nm">Michael Blažík</span><span class="ro">Co-founder &amp; CEO</span><p>Built JMC's behavioral-AI venture from zero — raw simulation data to a global platform — setting company strategy and bringing top technology and foreign capital into the region.</p></div>
+        <div class="p rv d2"><span class="nm">Jan Plucar</span><span class="ro">Co-founder &amp; CPO</span><p>Owns the product — shaping the data and ML pipeline and the GPRT model family from raw petabyte-scale datasets into products people rely on.</p></div>
+        <div class="p rv d3"><span class="nm">Miloslav Szczypka</span><span class="ro">Co-founder &amp; CTO</span><p>Leads engineering and technology — the platforms, infrastructure and dual-use architecture that carry JMC's models beyond gaming.</p></div>
       </div>
       <p class="note rv d4">In collaboration with researchers from VŠB – Technical University of Ostrava and an Oxford-trained AI advisor who has counseled leading global technology investors.</p>
     </div>
