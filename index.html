@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>JMC — We predict human behavior under pressure</title>
+<meta name="description" content="JMC a.s. captures data from simulators and simulations and trains AI to predict human behavior under pressure. Gaming and dual-use technology." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f3f1e9;
+    --paper-2:#ebe8dd;
+    --ink:#16160f;
+    --ink-soft:#3a3a31;
+    --muted:#6f6d61;
+    --rule:rgba(22,22,15,.18);
+    --rule-soft:rgba(22,22,15,.10);
+    --accent:#02d488;       /* rankacy green */
+    --accent-deep:#0a3f30;  /* deep ink-green for dark band */
+    --maxw:1240px;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --sans:"Hanken Grotesk",system-ui,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--accent);color:var(--ink)}
+  a{color:inherit;text-decoration:none}
+  .scroller{height:100vh;overflow-y:scroll;scroll-snap-type:y proximity}
+  .scroller::-webkit-scrollbar{width:0}
+  section{scroll-snap-align:start;position:relative;padding:118px clamp(22px,5vw,76px) 92px;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .wrap{width:100%;max-width:var(--maxw);margin:0 auto;position:relative;z-index:2}
+  /* top hairline progress */
+  .progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--ink);z-index:90;transition:width .1s linear}
+  /* nav */
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:baseline;justify-content:space-between;
+    padding:22px clamp(22px,5vw,76px);mix-blend-mode:normal;transition:padding .3s}
+  .wordmark{font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:.01em}
+  .wordmark sup{font-family:var(--mono);font-size:9px;letter-spacing:.18em;vertical-align:super;margin-left:4px;color:var(--muted)}
+  nav.links{display:flex;gap:26px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+  nav.links a{position:relative;padding-bottom:3px}
+  nav.links a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--ink);transition:right .3s}
+  nav.links a:hover::after{right:0}
+  .nav-right{display:flex;align-items:baseline;gap:26px}
+  .nav-right .ct{font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;border-bottom:1px solid var(--ink);padding-bottom:2px}
+  @media(max-width:880px){nav.links{display:none}}
+  /* reveal */
+  .rv{opacity:0;transform:translateY(20px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  .rv.d1{transition-delay:.07s}.rv.d2{transition-delay:.14s}.rv.d3{transition-delay:.21s}.rv.d4{transition-delay:.28s}.rv.d5{transition-delay:.35s}
+  /* shared editorial bits */
+  .kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px}
+  .kicker .idx{color:var(--ink)}
+  .kicker .ln{flex:1;height:1px;background:var(--rule);max-width:120px}
+  .display{font-family:var(--serif);font-weight:400;line-height:.98;letter-spacing:-.015em}
+  h2.display{font-size:clamp(2.1rem,4.6vw,3.6rem)}
+  .lead{font-size:clamp(1.08rem,1.5vw,1.32rem);color:var(--ink-soft);max-width:54ch;line-height:1.5;font-weight:400}
+  em{font-style:italic;font-family:var(--serif);color:var(--ink)}
+  /* link button */
+  .lnk{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;border-bottom:1px solid var(--ink);padding-bottom:4px;transition:gap .25s}
+  .lnk:hover{gap:16px}
+  .btn-solid{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--paper);padding:14px 22px}
+  .btn-solid:hover{background:var(--accent);color:var(--ink)}
+  /* ---------- HERO ---------- */
+  #hero{padding-top:130px;justify-content:flex-end}
+  #hero canvas{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;z-index:1;opacity:.9}
+  .hero-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:6vh}
+  .hero-meta{font-family:var(--mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);line-height:2}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(2.9rem,9vw,7.4rem);line-height:.92;letter-spacing:-.025em;max-width:15ch}
+  h1 em{font-weight:500}
+  .hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-top:5vh}
+  .hero-foot .sub{max-width:42ch;color:var(--ink-soft);font-size:1.05rem}
+  .hero-actions{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  /* marquee */
+  .marquee{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);overflow:hidden;white-space:nowrap;padding:14px 0;background:var(--paper)}
+  .marquee .run{display:inline-block;animation:slide 28s linear infinite;font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)}
+  .marquee:hover .run{animation-play-state:paused}
+  .marquee .run span{margin:0 26px}
+  .marquee .run b{color:var(--accent);font-weight:500;-webkit-text-stroke:.3px var(--ink)}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .band{padding:0!important;min-height:0!important;display:block}
+  /* ---------- MISSION ---------- */
+  .mission-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(36px,6vw,90px);align-items:end;margin-top:48px}
+  @media(max-width:860px){.mission-grid{grid-template-columns:1fr;gap:44px}}
+  .ledger{border-top:1px solid var(--ink)}
+  .ledger .row{display:flex;justify-content:space-between;align-items:baseline;gap:18px;padding:20px 0;border-bottom:1px solid var(--rule-soft)}
+  .ledger .row .n{font-family:var(--serif);font-size:clamp(2rem,3vw,2.7rem);line-height:1}
+  .ledger .row .l{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;max-width:18ch}
+  .steps{margin-top:34px;display:flex;flex-direction:column;gap:2px}
+  .steps .s{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:16px 0;border-top:1px solid var(--rule-soft);align-items:baseline}
+  .steps .s .t{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);-webkit-text-stroke:.3px var(--ink)}
+  .steps .s p{color:var(--ink-soft);font-size:15.5px}
+  .steps .s b{color:var(--ink);font-family:var(--serif);font-weight:500;font-size:1.18rem;display:block;margin-bottom:2px}
+  /* ---------- CAPABILITIES (editorial index list) ---------- */
+  .index{margin-top:50px;border-top:1px solid var(--ink)}
+  .index .it{display:grid;grid-template-columns:64px 1.1fr 2fr;gap:clamp(16px,3vw,46px);padding:26px 0;border-bottom:1px solid var(--rule);align-items:baseline;transition:padding-left .35s,background .35s}
+  .index .it:hover{padding-left:14px;background:linear-gradient(90deg,rgba(2,212,136,.10),transparent 40%)}
+  .index .it .no{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .index .it h3{font-family:var(--serif);font-weight:500;font-size:clamp(1.3rem,2.1vw,1.7rem);letter-spacing:-.01em}
+  .index .it p{color:var(--ink-soft);font-size:15.5px;max-width:48ch}
+  @media(max-width:760px){.index .it{grid-template-columns:40px 1fr}.index .it p{grid-column:1/-1}}
+  /* ---------- PRODUCTS ---------- */
+  .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:50px}
+  @media(max-width:860px){.prod-grid{grid-template-columns:1fr}}
+  .prod{background:var(--paper);padding:clamp(28px,3.4vw,44px)}
+  .prod .tag{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+  .prod h3{font-family:var(--serif);font-weight:500;font-size:clamp(2.4rem,4vw,3.4rem);letter-spacing:-.02em;margin:14px 0 4px}
+  .prod p{color:var(--ink-soft);font-size:15.5px;max-width:44ch}
+  .barline{margin-top:26px;display:flex;flex-direction:column;gap:13px}
+  .barline .b{display:grid;grid-template-columns:104px 1fr 44px;gap:14px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .barline .b .track{height:1px;background:var(--rule);position:relative}
+  .barline .b .track i{position:absolute;left:0;top:-1px;height:3px;width:0;background:var(--ink);transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+  .barline .b .pc{text-align:right;color:var(--ink);font-size:13px}
+  .figs{display:flex;flex-wrap:wrap;gap:30px 40px;margin-top:30px}
+  .figs .f b{font-family:var(--serif);font-weight:500;font-size:2.1rem;display:block;line-height:1}
+  .figs .f span{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  /* ---------- TEAM ---------- */
+  .team{margin-top:50px;border-top:1px solid var(--ink)}
+  .team .p{display:grid;grid-template-columns:0.6fr 1fr 1.6fr;gap:clamp(16px,3vw,44px);padding:30px 0;border-bottom:1px solid var(--rule);align-items:baseline;transition:.35s}
+  .team .p:hover{padding-left:14px}
+  .team .p .nm{font-family:var(--serif);font-weight:500;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:-.01em}
+  .team .p .ro{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);-webkit-text-stroke:.3px var(--ink)}
+  .team .p p{color:var(--ink-soft);font-size:15px;max-width:46ch}
+  @media(max-width:760px){.team .p{grid-template-columns:1fr}.team .p .ro{color:var(--muted);-webkit-text-stroke:0}}
+  /* ---------- PRESS ---------- */
+  .press{margin-top:46px;border-top:1px solid var(--ink)}
+  .press a{display:grid;grid-template-columns:auto 1fr auto;gap:clamp(16px,3vw,40px);padding:24px 0;border-bottom:1px solid var(--rule);align-items:baseline;transition:.35s}
+  .press a:hover{padding-left:14px}
+  .press a:hover h3{font-style:italic}
+  .press a .src{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:16ch}
+  .press a h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.15rem,1.9vw,1.5rem);letter-spacing:-.01em}
+  .press a .go{font-family:var(--mono);font-size:14px;color:var(--ink)}
+  @media(max-width:760px){.press a{grid-template-columns:1fr auto}.press a .src{grid-column:1/-1}}
+  /* ---------- COMPANY ---------- */
+  .reg{display:grid;grid-template-columns:repeat(2,1fr);border:1px solid var(--ink);margin-top:48px}
+  .reg .c{padding:24px 26px;border-bottom:1px solid var(--rule)}
+  .reg .c:nth-child(odd){border-right:1px solid var(--rule)}
+  .reg .c .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .reg .c .v{font-family:var(--serif);font-size:1.18rem;font-weight:500;margin-top:8px}
+  @media(max-width:680px){.reg{grid-template-columns:1fr}.reg .c:nth-child(odd){border-right:0}}
+  .note{margin-top:24px;font-family:var(--mono);font-size:11.5px;line-height:1.8;color:var(--muted);max-width:80ch}
+  /* ---------- CONTACT (inverted) ---------- */
+  #contact{background:var(--accent-deep);color:#eef3ef}
+  #contact canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:.5}
+  #contact .wrap{text-align:left}
+  #contact .kicker{color:rgba(238,243,239,.6)}
+  #contact .kicker .idx{color:#fff}
+  #contact .kicker .ln{background:rgba(238,243,239,.3)}
+  #contact h2{font-family:var(--serif);font-weight:400;font-size:clamp(2.4rem,6vw,5rem);line-height:.98;letter-spacing:-.02em;margin-top:30px;max-width:16ch}
+  #contact h2 em{color:var(--accent)}
+  #contact .sub{color:rgba(238,243,239,.78);max-width:46ch;margin-top:26px;font-size:1.1rem}
+  #contact .ca{display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:38px}
+  #contact .btn-solid{background:var(--accent);color:var(--ink)}
+  #contact .btn-solid:hover{background:#fff}
+  #contact .lnk{border-color:rgba(238,243,239,.6)}
+  footer{margin-top:9vh;padding-top:26px;border-top:1px solid rgba(238,243,239,.22);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:rgba(238,243,239,.6);position:relative;z-index:2}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<header class="nav" id="nav">
+  <a class="wordmark" href="#hero">JMC<sup>a.s.</sup></a>
+  <div class="nav-right">
+    <nav class="links">
+      <a href="#mission">Mission</a>
+      <a href="#capabilities">Method</a>
+      <a href="#products">Products</a>
+      <a href="#team">Team</a>
+      <a href="#press">Press</a>
+      <a href="#company">Company</a>
+    </nav>
+    <a class="ct" href="#contact">Contact</a>
+  </div>
+</header>
+<div class="scroller" id="scroller">
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="wave"></canvas>
+    <div class="wrap">
+      <div class="hero-top">
+        <div class="hero-meta">Behavioral AI<br/>Ostrava · Prague</div>
+        <div class="hero-meta" style="text-align:right">Gaming &amp; dual-use<br/>Est. MMVI</div>
+      </div>
+      <h1 class="rv">We predict <em>human behavior</em> under pressure.</h1>
+      <div class="hero-foot">
+        <p class="sub rv d1">JMC captures data from simulators and simulations and trains AI to read the decisive moment — who holds, who breaks. Built in gaming. Made for the real world.</p>
+        <div class="hero-actions rv d2">
+          <a class="btn-solid" href="#products">See the technology</a>
+          <a class="lnk" href="#mission">The method</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- MARQUEE BAND -->
+  <section class="band">
+    <div class="marquee">
+      <div class="run">
+        <span>Behavioral AI</span><span>—</span><span>Simulation data</span><span>—</span><span><b>Decision under pressure</b></span><span>—</span><span>GPRT model</span><span>—</span><span>Dual-use</span><span>—</span><span>Rankacy</span><span>—</span>
+        <span>Behavioral AI</span><span>—</span><span>Simulation data</span><span>—</span><span><b>Decision under pressure</b></span><span>—</span><span>GPRT model</span><span>—</span><span>Dual-use</span><span>—</span><span>Rankacy</span><span>—</span>
+      </div>
+    </div>
+  </section>
+  <!-- MISSION -->
+  <section id="mission">
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">01</span><span>The mission</span><span class="ln"></span></div>
+      <div class="mission-grid">
+        <div>
+          <h2 class="display rv d1">Pressure reveals everyone.<br/>We read it <em>first</em>.</h2>
+          <div class="steps">
+            <div class="s rv d2"><span class="t">Collect</span><p><b>The signal</b>High-resolution behavioral data from simulators and simulations.</p></div>
+            <div class="s rv d3"><span class="t">Model</span><p><b>The engine</b>Proprietary AI trained on decision-making under stress.</p></div>
+            <div class="s rv d4"><span class="t">Apply</span><p><b>The output</b>Decision support across gaming and dual-use domains.</p></div>
+          </div>
+        </div>
+        <div class="ledger rv d2">
+          <div class="row"><span class="n" data-count="500" data-suffix=" TB">0</span><span class="l">Behavioral data ≈ half a petabyte</span></div>
+          <div class="row"><span class="n" data-count="6" data-suffix="M">0</span><span class="l">Players analyzed</span></div>
+          <div class="row"><span class="n" data-count="40" data-suffix="K">0</span><span class="l">Active users</span></div>
+          <div class="row"><span class="n" data-count="150" data-suffix="+">0</span><span class="l">Countries reached</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- CAPABILITIES -->
+  <section id="capabilities">
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">02</span><span>The method</span><span class="ln"></span></div>
+      <h2 class="display rv d1" style="margin-top:24px">One engine, built on<br/>data no one else has.</h2>
+      <div class="index">
+        <div class="it rv d1"><span class="no">/01</span><h3>Simulator data capture</h3><p>We instrument simulators and simulations to record how people decide under time pressure — at a resolution traditional assessment misses.</p></div>
+        <div class="it rv d1"><span class="no">/02</span><h3>Behavioral AI models</h3><p>PhD engineers clean, structure and train on the data using modern transformer and cross-attention architectures.</p></div>
+        <div class="it rv d2"><span class="no">/03</span><h3>Predict &amp; simulate</h3><p>Anticipate decisions and rehearse high-stakes situations — before lives or training budgets are on the line.</p></div>
+        <div class="it rv d2"><span class="no">/04</span><h3>Dual-use technology</h3><p>The same engine extends from gaming into defense, training and crisis simulation. Civilian innovation, security-grade reach.</p></div>
+        <div class="it rv d3"><span class="no">/05</span><h3>Integrity &amp; safety</h3><p>Pattern detection flags anomalies — from cheating to protecting minors online — far faster than human review.</p></div>
+        <div class="it rv d3"><span class="no">/06</span><h3>Cross-domain transfer</h3><p>Proven in games. Transferable to education, healthcare, industry and public administration.</p></div>
+      </div>
+    </div>
+  </section>
+  <!-- PRODUCTS -->
+  <section id="products">
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">03</span><span>Products</span><span class="ln"></span></div>
+      <h2 class="display rv d1" style="margin-top:24px">Two products.<br/>One behavioral core.</h2>
+      <div class="prod-grid">
+        <div class="prod rv d1">
+          <div class="tag">Proprietary AI model</div>
+          <h3>GPRT</h3>
+          <p>Our foundation model — like ChatGPT, but trained on behavior instead of text. It scores performance, predicts how a person acts under pressure, and guides improvement. <em>Flash</em> for real time, <em>Pro</em> for depth.</p>
+          <div class="barline">
+            <div class="b"><span>Round outcome</span><span class="track"><i data-w="92"></i></span><span class="pc">92%</span></div>
+            <div class="b"><span>Survival</span><span class="track"><i data-w="88"></i></span><span class="pc">88%</span></div>
+            <div class="b"><span>Objective</span><span class="track"><i data-w="85"></i></span><span class="pc">85%</span></div>
+          </div>
+          <p style="font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted);margin-top:18px;text-transform:uppercase">Prediction accuracy · in-game decision tasks</p>
+        </div>
+        <div class="prod rv d2">
+          <div class="tag">Decision-support platform</div>
+          <h3>Rankacy</h3>
+          <p>A decision-support system that turns hundreds of terabytes of match data into clear feedback. A digital coach — deep analysis, strengths and weaknesses, progression, automatic 4K highlights.</p>
+          <div class="figs">
+            <div class="f"><b>40K+</b><span>Active users</span></div>
+            <div class="f"><b>150+</b><span>Countries</span></div>
+            <div class="f"><b>6M+</b><span>Players analyzed</span></div>
+            <div class="f"><b>40M+</b><span>CS2 audience</span></div>
+          </div>
+          <p style="margin-top:30px"><a class="lnk" href="https://rankacy.com" target="_blank" rel="noopener">Open rankacy.com</a></p>
+        </div>
+      </div>
+      <p class="lead rv d3" style="margin-top:40px">Next — GPRT for B2B: tools that help studios build safer, fairer games, and decision support for education, healthcare, industry and defense.</p>
+    </div>
+  </section>
+  <!-- TEAM -->
+  <section id="team">
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">04</span><span>The team</span><span class="ln"></span></div>
+      <h2 class="display rv d1" style="margin-top:24px">The people<br/>behind the model.</h2>
+      <div class="team">
+        <div class="p rv d1"><span class="nm">Michael Blažík</span><span class="ro">Founder &amp; CEO</span><p>Built JMC's behavioral-AI venture from zero — raw simulation data to a global platform — bringing top technology and foreign capital into the region.</p></div>
+        <div class="p rv d2"><span class="nm">Jan Plucar</span><span class="ro">Board · AI &amp; Engineering</span><p>Runs the data and ML pipeline — collecting, cleaning and structuring petabyte-scale datasets, and training the GPRT model family.</p></div>
+        <div class="p rv d3"><span class="nm">Miloslav Szczypka</span><span class="ro">Board · Strategy &amp; Operations</span><p>Leads strategy, operations and partnerships — and the push of JMC's dual-use applications beyond gaming.</p></div>
+      </div>
+      <p class="note rv d4">In collaboration with researchers from VŠB – Technical University of Ostrava and an Oxford-trained AI advisor who has counseled leading global technology investors.</p>
+    </div>
+  </section>
+  <!-- PRESS -->
+  <section id="press">
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">05</span><span>Press</span><span class="ln"></span></div>
+      <h2 class="display rv d1" style="margin-top:24px">In the news.</h2>
+      <div class="press">
+        <a class="rv d1" href="https://positiv.cz/rozhovory/muzi-v-byznysu/jedna-ai-miliony-vzorcu-chovani-a-potencial-menit-cele-obory/" target="_blank" rel="noopener"><span class="src">Magazín POSITIV</span><h3>One AI, millions of behavior patterns — and the potential to change entire industries.</h3><span class="go">↗</span></a>
+        <a class="rv d1" href="https://positiv.cz/business/prumysl-technologie-a-inovace/hrani-her-jako-okno-do-lidske-mysli-jak-umela-inteligence-meni-pohled-na-gaming/" target="_blank" rel="noopener"><span class="src">Magazín POSITIV</span><h3>Gaming as a window into the mind: how AI is changing the way we see gaming.</h3><span class="go">↗</span></a>
+        <a class="rv d2" href="https://moravskoslezsky.denik.cz/podnikani/rankacy-startup-ostrava-propojeni-ai-esport-ai-studio-plany-ambice.html" target="_blank" rel="noopener"><span class="src">Moravskoslezský deník</span><h3>The Ostrava startup Rankacy connects artificial intelligence with e-sport.</h3><span class="go">↗</span></a>
+        <a class="rv d2" href="https://www.patriotmagazin.cz/startup-rankacy-z-ostravskych-korenu-do-globalni-digitalni-dzungle" target="_blank" rel="noopener"><span class="src">Magazín PATRIOT</span><h3>Startup Rankacy: from Ostrava roots into the global digital jungle.</h3><span class="go">↗</span></a>
+        <a class="rv d3" href="https://komoraplus.cz/2025/06/02/ceska-firma-buduje-prvni-mozek-kompetitivniho-hrani/" target="_blank" rel="noopener"><span class="src">Komora Plus</span><h3>A Czech company is building the first "brain of competitive gaming."</h3><span class="go">↗</span></a>
+        <a class="rv d3" href="https://games.tiscali.cz/tema/chcete-byt-lepsi-hraci-pomuze-vam-k-tomu-cesky-projekt-rankacy-pohaneny-ai-583762" target="_blank" rel="noopener"><span class="src">Tiscali Games</span><h3>Want to be a better player? The Czech AI-powered project Rankacy will help.</h3><span class="go">↗</span></a>
+      </div>
+      <p class="note rv d4">Featured at Gamescom (Cologne) via CzechInvest · Active with the City of Ostrava and the Moravian-Silesian Region on applied AI.</p>
+    </div>
+  </section>
+  <!-- COMPANY -->
+  <section id="company">
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">06</span><span>Company · Public registry</span><span class="ln"></span></div>
+      <h2 class="display rv d1" style="margin-top:24px">JMC a.s.<br/>The official record.</h2>
+      <div class="reg rv d2">
+        <div class="c"><div class="k">Legal name</div><div class="v">JMC a.s. — akciová společnost</div></div>
+        <div class="c"><div class="k">Identification No. (IČO)</div><div class="v">27631354</div></div>
+        <div class="c"><div class="k">VAT ID (DIČ)</div><div class="v">CZ27631354</div></div>
+        <div class="c"><div class="k">File reference</div><div class="v">B 11353 · Municipal Court, Prague</div></div>
+        <div class="c"><div class="k">Incorporated</div><div class="v">13 December 2006</div></div>
+        <div class="c"><div class="k">Share capital</div><div class="v">CZK 2,000,000</div></div>
+        <div class="c"><div class="k">Registered seat</div><div class="v">Veletržní 1623/24, Holešovice, 170 00 Praha 7</div></div>
+        <div class="c"><div class="k">Scope (since 2025)</div><div class="v">Software · IT consulting · data processing · training · virtual-asset services</div></div>
+      </div>
+      <p class="note rv d3">Source: public Czech business registers (Ministry of Justice / Ministry of Finance). The registered scope was broadened in 2024–2025 to cover software, IT consultancy, data processing, web portals, training and virtual-asset services — the legal base for JMC's applied-AI work.</p>
+    </div>
+  </section>
+  <!-- CONTACT -->
+  <section id="contact">
+    <canvas id="wave2"></canvas>
+    <div class="wrap">
+      <div class="kicker rv"><span class="idx">07</span><span>Contact</span><span class="ln"></span></div>
+      <h2 class="rv d1">Pressure reveals everyone.<br/>We tell you <em>first</em>.</h2>
+      <p class="sub rv d2">Partner with JMC on behavioral data, simulation and dual-use AI — from gaming integrity to high-stakes training.</p>
+      <div class="ca rv d3">
+        <a class="btn-solid" href="mailto:contact@jmc.cz">Contact the team</a>
+        <a class="lnk" href="https://rankacy.com" target="_blank" rel="noopener">See Rankacy live</a>
+      </div>
+      <footer>
+        <span>JMC a.s. — Behavioral AI</span>
+        <span>IČO 27631354 · Veletržní 1623/24, 170 00 Praha 7</span>
+        <span>© 2026</span>
+      </footer>
+    </div>
+  </section>
+</div>
+<script>
+  /* ---------- bespoke "pressure signal" waveform ---------- */
+  function signal(canvas,cfg){
+    cfg=cfg||{};
+    const ctx=canvas.getContext('2d');
+    let w=0,h=0,dpr=1,t=0,raf=null,vis=true;
+    const mx={v:null};
+    const stroke=cfg.stroke||'2,212,136';
+    const base=cfg.alpha||0.9;
+    function resize(){
+      const r=canvas.getBoundingClientRect();w=r.width;h=r.height;
+      dpr=Math.min(window.devicePixelRatio||1,2);
+      canvas.width=w*dpr;canvas.height=h*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+    }
+    function line(amp,freq,phase,alpha,lw){
+      ctx.beginPath();
+      for(let x=0;x<=w;x+=4){
+        const mid=h*0.5;
+        let y=mid
+          +Math.sin(x*freq+phase)*amp
+          +Math.sin(x*freq*2.3+phase*1.7)*amp*0.32;
+        if(mx.v!=null){
+          const d=Math.abs(x-mx.v);
+          if(d<150){y+=Math.sin(x*0.06+t*4)*(150-d)/150*amp*1.4;}
+        }
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.strokeStyle='rgba('+stroke+','+alpha+')';
+      ctx.lineWidth=lw;ctx.stroke();
+    }
+    function step(){
+      ctx.clearRect(0,0,w,h);t+=0.012;
+      line(h*0.16,0.012,t,base,1.6);
+      line(h*0.11,0.017,-t*1.3,base*0.4,1);
+      line(h*0.07,0.026,t*0.8,base*0.25,1);
+      if(vis)raf=requestAnimationFrame(step);
+    }
+    window.addEventListener('resize',resize);
+    window.addEventListener('mousemove',e=>{const r=canvas.getBoundingClientRect();const x=e.clientX-r.left;mx.v=(x>=0&&x<=w&&e.clientY-r.top>=-40&&e.clientY-r.top<=h+40)?x:null;},{passive:true});
+    new IntersectionObserver(es=>es.forEach(e=>{vis=e.isIntersecting;if(vis&&!raf)raf=requestAnimationFrame(step);else if(!vis){cancelAnimationFrame(raf);raf=null;}}),{threshold:0}).observe(canvas);
+    resize();raf=requestAnimationFrame(step);
+  }
+  signal(document.getElementById('wave'),{stroke:'10,63,48',alpha:0.5});
+  signal(document.getElementById('wave2'),{stroke:'2,212,136',alpha:0.55});
+  /* ---------- scroll UI ---------- */
+  const scroller=document.getElementById('scroller');
+  const progress=document.getElementById('progress');
+  function onScroll(){const st=scroller.scrollTop,max=scroller.scrollHeight-scroller.clientHeight;progress.style.width=(st/max*100)+'%';}
+  scroller.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}),{root:scroller,threshold:.16});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  const counted=new WeakSet();
+  function runCount(el){
+    if(counted.has(el))return;counted.add(el);
+    const target=+el.dataset.count,suf=el.dataset.suffix||'',dur=1500,t0=performance.now();
+    (function tick(t){const p=Math.min((t-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(target*e).toLocaleString()+suf;if(p<1)requestAnimationFrame(tick);})(t0);
+  }
+  const cIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)runCount(e.target)}),{root:scroller,threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cIO.observe(el));
+  const bIO=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.style.width=e.target.dataset.w+'%'}),{root:scroller,threshold:.5});
+  document.querySelectorAll('.barline i').forEach(el=>bIO.observe(el));
+</script>
+</body>
+</html>
