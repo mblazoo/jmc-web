@@ -252,7 +252,9 @@
   /* footer brand logo (inverted to light on dark band) */
   .foot-brand{display:inline-flex;align-items:center;gap:11px}
   .footer-logo{height:24px;width:auto;filter:brightness(0) invert(1);opacity:.92}
-  /* ---------- PITCH TEASER (on page) ---------- */
+  /* ---------- PITCH TEASER (on page) — HIDDEN ---------- */
+  #pitch{display:none}
+  nav.links a[href="#pitch"]{display:none}
   #pitch .tease{margin-top:48px;border:1px solid var(--ink);display:flex;justify-content:space-between;align-items:center;gap:26px;padding:clamp(28px,4vw,52px);cursor:pointer;transition:background .35s,color .35s;background:var(--paper)}
   #pitch .tease:hover{background:var(--ink);color:var(--paper)}
   #pitch .tease .t-big{font-family:var(--serif);font-size:clamp(1.7rem,3.4vw,2.9rem);line-height:1.05;letter-spacing:-.015em}
