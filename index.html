@@ -292,6 +292,23 @@
   .tm .m p{color:var(--ink-soft);font-size:13.5px;margin-top:3px;max-width:56ch}
   .dk-prods{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:44px}
   @media(max-width:980px){.dk-prods{grid-template-columns:1fr}}
+  /* system 1 vs system 2 comparison */
+  .vs-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:clamp(14px,2.5vw,30px);margin-top:40px;align-items:stretch}
+  @media(max-width:860px){.vs-grid{grid-template-columns:1fr}.vs-grid .vs{display:none}}
+  .vs-grid .sys{border:1px solid var(--rule);padding:clamp(20px,3vw,34px);background:var(--paper)}
+  .vs-grid .sys.hot{border-color:var(--c-green);background:linear-gradient(180deg,color-mix(in srgb,var(--c-green) 8%,transparent),transparent)}
+  .vs-grid .sys .sk{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .vs-grid .sys .ms{font-family:var(--serif);font-size:clamp(1.7rem,3vw,2.5rem);font-weight:500;margin:10px 0 2px}
+  .vs-grid .sys p{color:var(--ink-soft);font-size:14.5px;margin-top:10px;max-width:38ch}
+  .vs-grid .sys .bb{margin-top:16px;padding-top:12px;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .vs-grid .sys .bb b{display:block;color:var(--ink);margin-top:4px}
+  .vs-grid .sys.hot .bb b{color:var(--c-green);-webkit-text-stroke:.3px var(--ink)}
+  .vs-grid .vs{align-self:center;font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted)}
+  /* deck in-nav (section jumps) */
+  .dk-nav{pointer-events:auto;display:flex;gap:18px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .dk-nav button{background:none;border:0;cursor:pointer;font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;padding:0 0 2px;border-bottom:1px solid transparent;transition:color .3s,border-color .3s}
+  .dk-nav button:hover{color:var(--ink);border-color:var(--ink)}
+  @media(max-width:1100px){.dk-nav{display:none}}
   /* deck chrome */
   .deck-top{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:18px clamp(22px,5vw,76px);pointer-events:none}
   .deck-top .db{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -545,10 +562,19 @@
   <div class="deck-progress" id="deck-progress"></div>
   <div class="deck-top">
     <span class="db">Rankacy AI · Pitch deck</span>
+    <nav class="dk-nav" id="dk-nav">
+      <button data-slide="0">Home</button>
+      <button data-slide="1">Problem</button>
+      <button data-slide="3">Team</button>
+      <button data-slide="6">Technology</button>
+      <button data-slide="8">Products</button>
+      <button data-slide="9">Data</button>
+      <button data-slide="13">The Ask</button>
+    </nav>
     <button class="deck-close" id="deck-close">Close ✕</button>
   </div>
   <div class="deck-dots" id="deck-dots"></div>
-  <span class="deck-count" id="deck-count">01 / 14</span>
+  <span class="deck-count" id="deck-count">01 / 15</span>
   <span class="deck-hint">Scroll or ↑↓</span>
   <div class="deck-scroller" id="deck-scroller">
 
@@ -563,28 +589,133 @@
       </div>
     </article>
 
-    <!-- 02 · Insight -->
+    <!-- 02 · The Problem -->
     <article class="slide">
       <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">02</span><span>The insight</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">Humans are not text.</h3>
-        <div class="index" style="margin-top:38px">
-          <div class="it rv d1"><span class="no">/01</span><h3>Before language</h3><p>LLMs predict behaviour from text. The decisions that matter most happen in the first 200 milliseconds — before reason has a chance to intervene.</p></div>
-          <div class="it rv d2"><span class="no">/02</span><h3>Everyone builds System 2</h3><p>Every major lab is building slow, deliberate reasoning. No one is building System 1 — the instinctive layer that decides who holds the line and who breaks.</p></div>
-          <div class="it rv d3"><span class="no">/03</span><h3>Billions spent blind</h3><p>Militaries, security forces and pro sports spend billions training for the decisive moment — with no way to measure what actually happens inside it.</p></div>
+        <div class="kicker rv"><span class="idx">02</span><span>The problem</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">AI is building<br/>only half a brain.</h3>
+        <p class="lead rv d2" style="margin-top:22px;max-width:62ch">Two systems drive the human mind — fast intuition and slow reasoning. LLMs predict behaviour from text, but the decisions that matter most happen in the first 200 milliseconds — before language, before reason.</p>
+        <div class="vs-grid">
+          <div class="sys rv d2">
+            <div class="sk">System 2 — slow thinking · 500 ms+</div>
+            <div class="ms">The neocortex</div>
+            <p>Logic, language, planning and deliberate reasoning.</p>
+            <div class="bb">Being built by<b>OpenAI · Anthropic · Google · Meta</b></div>
+          </div>
+          <span class="vs rv d3">VS</span>
+          <div class="sys hot rv d3">
+            <div class="sk">System 1 — fast thinking · 50–200 ms</div>
+            <div class="ms">The instinct layer</div>
+            <p>Fight-or-flight, instinct, reflex — the layer that decides who holds the line and who breaks.</p>
+            <div class="bb">Being built by<b>No one. Until now.</b></div>
+          </div>
         </div>
-        <p class="lead rv d4" style="margin-top:36px">Pressure reveals everyone eventually. <em>Rankacy AI sees it first.</em></p>
+        <p class="note rv d4">Militaries, security forces and pro sports spend billions training for the decisive moment — with no way to measure what happens inside it. Pressure reveals everyone eventually. Rankacy AI sees it first.</p>
       </div>
     </article>
 
-    <!-- 03 · Solution -->
+    <!-- 03 · The Gap / Market -->
     <article class="slide">
       <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">03</span><span>The solution</span><span class="ln"></span></div>
+        <div class="kicker rv"><span class="idx">03</span><span>The gap · Market</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">The decisive moment<br/>is an unmeasured market.</h3>
+        <div class="index" style="margin-top:38px">
+          <div class="it rv d1"><span class="no">$15B</span><h3>Military simulation &amp; training</h3><p>Lead vertical: ~$14–15B (2025) → ~$22–23B by 2034. The entire industry rehearses the decisive moment — with no credible way to measure performance inside it.</p></div>
+          <div class="it rv d2"><span class="no">$200B</span><h3>Human-like AI bots</h3><p>Fast-growing adjacency across defense simulation and a $200B+ global gaming market converging on believable human-behaving NPCs.</p></div>
+          <div class="it rv d3"><span class="no">$29B</span><h3>Talent assessment</h3><p>Limbic TAM: ~$29B (2025) → ~$57B by 2035. Nearly all spend goes to cognition and personality — none to instinct under pressure. That's the gap.</p></div>
+          <div class="it rv d4"><span class="no">$3B</span><h3>Human-robot interaction</h3><p>$1.4–3B today, growing 19–25% annually — AI-driven safety is becoming the gating factor for shared human-robot spaces.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 · Science team -->
+    <article class="slide">
+      <div class="s-wrap">
+        <div class="kicker rv"><span class="idx">04</span><span>Science team</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">World-class researchers<br/>building Behavioral AI.</h3>
+        <div class="dk-cols">
+          <div class="dk-col rv d2">
+            <h4>Research</h4>
+            <div class="tm">
+              <div class="m"><span class="nm">Kannan Paul, PhD</span><span class="ro">Lead Limbic Researcher · Non-exec Director</span><p>Oxford-trained in AI &amp; mathematics; advisor to SoftBank, Sequoia and global corporates via London Technology Club. Ex-Apple.</p></div>
+              <div class="m"><span class="nm">Prof. Ivan Zelinka, PhD</span><span class="ro">Co-founder · AI</span><p>Head of Applied Informatics, VŠB-TU. Stanford/Elsevier top-2% most-cited in AI; European Commission AI Scientific Panel.</p></div>
+              <div class="m"><span class="nm">Radek Svoboda, PhD</span><span class="ro">Head of AI</span><p>Lead author of the GPRT model family.</p></div>
+            </div>
+          </div>
+          <div class="dk-col rv d3">
+            <h4>&nbsp;</h4>
+            <div class="tm">
+              <div class="m"><span class="nm">Jan Plucar, PhD</span><span class="ro">Co-founder &amp; CPO</span><p>Cybersecurity PhD; assistant professor at VŠB-TU.</p></div>
+              <div class="m"><span class="nm">Michal Chovanec, PhD</span><span class="ro">AI Researcher</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="note rv d4">Strategic collaborations: Marcel Binz (Helmholtz Munich) — principal author of Centaur AI, published in Nature · Mikael Edqvist — co-founder of 4C Strategies, Global Director of BD at Cubic.</p>
+      </div>
+    </article>
+
+    <!-- 05 · Leadership -->
+    <article class="slide">
+      <div class="s-wrap">
+        <div class="kicker rv"><span class="idx">05</span><span>Leadership</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">The team executing<br/>the vision.</h3>
+        <div class="dk-cols">
+          <div class="dk-col rv d2">
+            <div class="tm" style="margin-top:0">
+              <div class="m"><span class="nm">Michael Blažík</span><span class="ro">Co-founder &amp; CEO</span><p>Author of the Rankacy thesis; former coach of the Korean national floorball team; built the platform 0 → 75K users.</p></div>
+              <div class="m"><span class="nm">Miloslav Szczypka</span><span class="ro">Co-founder &amp; CTO</span><p>Deep-tech/ML engineer; full technical execution across GPRT and the data pipeline.</p></div>
+            </div>
+          </div>
+          <div class="dk-col rv d3">
+            <div class="tm" style="margin-top:0">
+              <div class="m"><span class="nm">Jonathan Jackson</span><span class="ro">Co-founder &amp; Angel</span><p>Founder &amp; Chairman of Lordship Group — portfolio &gt;$1.5B.</p></div>
+              <div class="m"><span class="nm">Jan Čeladín</span><span class="ro">COO &amp; CFO</span><p>Ex-EY (ACCA); led the €1.3B Residomo sale to Heimstaden.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 06 · Research & partnerships -->
+    <article class="slide">
+      <div class="s-wrap">
+        <div class="kicker rv"><span class="idx">06</span><span>Research &amp; partnerships</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">Backed by science,<br/>trusted by defense.</h3>
+        <div class="index" style="margin-top:38px">
+          <div class="it rv d1"><span class="no">/01</span><h3>OneArc BAE Systems</h3><p>Signed partnership — AI After-Action Review for VBS4/Flowstate, the platform of 60+ NATO militaries. Dronoko AI commercial launch autumn 2026; first pilot revenue H2 FY26.</p></div>
+          <div class="it rv d1"><span class="no">/02</span><h3>Vendor pipeline</h3><p>Active talks with Plexsys and CSG; US office planned.</p></div>
+          <div class="it rv d2"><span class="no">/03</span><h3>Charles University</h3><p>Sports science &amp; human performance — mapping digital behavioural signals to physiological metrics.</p></div>
+          <div class="it rv d2"><span class="no">/04</span><h3>Masaryk University</h3><p>Psychology — validating AI-detected patterns against gold-standard psychological assessments.</p></div>
+          <div class="it rv d3"><span class="no">/05</span><h3>VŠB Technical University</h3><p>AI — co-developing novel architectures for behavioural models.</p></div>
+          <div class="it rv d3"><span class="no">/06</span><h3>Frontier research</h3><p>Collaboration with Marcel Binz — principal author of Centaur AI, published in Nature.</p></div>
+        </div>
+        <p class="note rv d4">75K+ registered users on rankacy.gg · four production AI models deployed · $4M deployed to date at a fraction of US replication cost.</p>
+      </div>
+    </article>
+
+    <!-- 07 · Technology pipeline -->
+    <article class="slide">
+      <div class="s-wrap">
+        <div class="kicker rv"><span class="idx">07</span><span>Technology pipeline</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">From GPRT to Ember —<br/>the behavioural model stack.</h3>
+        <div class="steps" style="margin-top:38px;max-width:820px">
+          <div class="s rv d1"><span class="t">Built</span><p><b>GPRT</b>In-house model family trained on CS2 behavioural data — Delta Lake pipeline with a medallion architecture (bronze → silver → gold).</p></div>
+          <div class="s rv d2"><span class="t">Built</span><p><b>GPRT Pro</b>A 75M-parameter transformer trained on sequences of human actions, not text — which decision, at which moment, under which conditions. ~90% accuracy in high-certainty scenarios.</p></div>
+          <div class="s rv d3"><span class="t">Deployed</span><p><b>Four production models</b>Dedicated on-prem training infrastructure; AWS/Hetzner deployment.</p></div>
+          <div class="s rv d4"><span class="t">Training</span><p><b>Ember</b>Our limbic-state model — the first AI trained to predict instinctive fight-or-flight reactions.</p></div>
+          <div class="s rv d5"><span class="t">Research</span><p><b>Bio-Digital Bridge</b>Validating digital behavioural signals against physiological data with Charles University, Masaryk University and VŠB-TU.</p></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 08 · Core innovation -->
+    <article class="slide">
+      <div class="s-wrap">
+        <div class="kicker rv"><span class="idx">08</span><span>The core innovation</span><span class="ln"></span></div>
         <h3 class="s-title rv d1">Behavioral AI — what humans <em>do</em>,<br/>not what they say.</h3>
         <div class="mission-grid" style="margin-top:38px">
           <div>
-            <p class="lead rv d2">We collect real-world, simulator and gaming data to train models that go to the core of instinctive behaviour — the layer triggered by the lizard brain.</p>
+            <p class="lead rv d2">We collect real-world, simulator and gaming data to train models that go to the core of instinctive behaviour — the subcortical layer that reacts in under 300 milliseconds.</p>
             <div class="steps">
               <div class="s rv d3"><span class="t">Ember</span><p><b>The limbic model</b>Predicts fight-or-flight situations with accuracy no LLM can reach.</p></div>
               <div class="s rv d4"><span class="t">Applied</span><p><b>The outcome</b>AI that improves human performance in high-pressure environments — military, security forces, aviation, professional sports.</p></div>
@@ -598,91 +729,10 @@
       </div>
     </article>
 
-    <!-- 04 · Team -->
+    <!-- 09 · Products -->
     <article class="slide">
       <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">04</span><span>Team</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">Researchers first.</h3>
-        <div class="dk-cols">
-          <div class="dk-col rv d2">
-            <h4>Research</h4>
-            <div class="tm">
-              <div class="m"><span class="nm">Kannan Paul, PhD</span><span class="ro">Lead Limbic Researcher · Non-exec Director</span><p>Oxford-trained in AI &amp; mathematics; advisor to SoftBank, Sequoia and global corporates via London Technology Club. Ex-Apple.</p></div>
-              <div class="m"><span class="nm">Prof. Ivan Zelinka, PhD</span><span class="ro">Co-founder · AI</span><p>Head of Applied Informatics, VŠB-TU. Stanford/Elsevier top-2% most-cited in AI; European Commission AI Scientific Panel.</p></div>
-              <div class="m"><span class="nm">Radek Svoboda, PhD</span><span class="ro">Head of AI</span><p>Lead author of the GPRT model family.</p></div>
-              <div class="m"><span class="nm">Jan Plucar, PhD</span><span class="ro">Co-founder &amp; CPO</span><p>Cybersecurity PhD; assistant professor at VŠB-TU.</p></div>
-              <div class="m"><span class="nm">Michal Chovanec, PhD</span><span class="ro">AI Researcher</span></div>
-            </div>
-          </div>
-          <div class="dk-col rv d3">
-            <h4>Leadership</h4>
-            <div class="tm">
-              <div class="m"><span class="nm">Michael Blažík</span><span class="ro">Co-founder &amp; CEO</span><p>Author of the Rankacy thesis; former coach of the Korean national floorball team; built the platform 0 → 75K users.</p></div>
-              <div class="m"><span class="nm">Miloslav Szczypka</span><span class="ro">Co-founder &amp; CTO</span><p>Deep-tech/ML engineer; full technical execution across GPRT and the data pipeline.</p></div>
-              <div class="m"><span class="nm">Jonathan Jackson</span><span class="ro">Co-founder &amp; Angel</span><p>Founder &amp; Chairman of Lordship Group — portfolio &gt;$1.5B.</p></div>
-              <div class="m"><span class="nm">Jan Čeladín</span><span class="ro">COO &amp; CFO</span><p>Ex-EY (ACCA); led the €1.3B Residomo sale to Heimstaden.</p></div>
-            </div>
-          </div>
-        </div>
-        <p class="note rv d4">Strategic collaborations: Marcel Binz (Helmholtz Munich) — principal author of Centaur AI, published in Nature · Mikael Edqvist — co-founder of 4C Strategies, Global Director of BD at Cubic.</p>
-      </div>
-    </article>
-
-    <!-- 05 · Data moat -->
-    <article class="slide">
-      <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">05</span><span>The data moat</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">5,000 years of behaviour,<br/>at 1/64th of a second.</h3>
-        <div class="mission-grid" style="margin-top:38px">
-          <div>
-            <div class="steps" style="margin-top:0">
-              <div class="s rv d2"><span class="t">Context</span><p><b>Not just a game record</b>The full context of every situation and the full state of the subject: what they saw, heard, where they stood, what they did — and their entire behavioural history.</p></div>
-              <div class="s rv d3"><span class="t">Instinct</span><p><b>Subcortical reactions under 300 ms</b>Granularity that isolates the behaviours embedded in instinct and emotional memory — and how fast each person's reasoning overrides raw impulse.</p></div>
-              <div class="s rv d4"><span class="t">Patented</span><p><b>Annotated behavioural video</b>Patented technology generates labeled video clips directly from raw data — thousands of years of behavioural footage with full decision context.</p></div>
-            </div>
-          </div>
-          <div class="ledger rv d2">
-            <div class="row"><span class="n" data-count="6" data-suffix="M">0</span><span class="l">Records</span></div>
-            <div class="row"><span class="n" data-count="11" data-suffix="M">0</span><span class="l">People</span></div>
-            <div class="row"><span class="n" data-count="64" data-suffix=" Hz">0</span><span class="l">Sampling — reaction times at the 15 ms level</span></div>
-            <div class="row"><span class="n">$4M</span><span class="l">Invested to date — multiples to replicate in the US or EU</span></div>
-          </div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 06 · Why now -->
-    <article class="slide">
-      <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">06</span><span>Why now</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">AI is leaving the chat window.</h3>
-        <div class="index" style="margin-top:38px">
-          <div class="it rv d1"><span class="no">/01</span><h3>Generative → physical</h3><p>As AI shifts from content to agentic and physical action, predicting human irrationality goes from a feature to a safety requirement.</p></div>
-          <div class="it rv d2"><span class="no">/02</span><h3>AI × defense</h3><p>The two hottest sectors in technology — Rankacy sits at their intersection, building a layer no incumbent lab is addressing.</p></div>
-          <div class="it rv d3"><span class="no">/03</span><h3>The dual-use precedent</h3><p>Anduril, Palantir and Scale proved defense-first AI creates venture-scale outcomes. We bring the data layer they all lack: instinctive human behaviour.</p></div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 07 · Technology -->
-    <article class="slide">
-      <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">07</span><span>Technology</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">The GPRT model family.</h3>
-        <div class="index" style="margin-top:38px">
-          <div class="it rv d1"><span class="no">/01</span><h3>GPRT</h3><p>In-house predictive models trained on CS2 behavioural data — Delta Lake pipeline with a medallion architecture (bronze → silver → gold).</p></div>
-          <div class="it rv d1"><span class="no">/02</span><h3>GPRT Pro</h3><p>A 75M-parameter transformer trained on sequences of human actions, not text — which decision, at which moment, under which conditions. ~90% accuracy in high-certainty scenarios.</p></div>
-          <div class="it rv d2"><span class="no">/03</span><h3>Four production models</h3><p>Dedicated on-prem training infrastructure; AWS/Hetzner deployment.</p></div>
-          <div class="it rv d2"><span class="no">/04</span><h3>Ember</h3><p>Our limbic-state model — the first AI trained to predict instinctive fight-or-flight reactions.</p></div>
-          <div class="it rv d3"><span class="no">/05</span><h3>Bio-Digital Bridge</h3><p>Validating digital behavioural signals against physiological data with Charles University, Masaryk University and VŠB-TU.</p></div>
-        </div>
-      </div>
-    </article>
-
-    <!-- 08 · Products -->
-    <article class="slide">
-      <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">08</span><span>Products</span><span class="ln"></span></div>
+        <div class="kicker rv"><span class="idx">09</span><span>Products</span><span class="ln"></span></div>
         <h3 class="s-title rv d1">One stack, three products.</h3>
         <div class="dk-prods">
           <div class="prod rv d1">
@@ -704,46 +754,53 @@
       </div>
     </article>
 
-    <!-- 09 · Traction -->
+    <!-- 10 · The data moat -->
     <article class="slide">
       <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">09</span><span>Traction &amp; validation</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">Signed, deployed, published.</h3>
-        <div class="index" style="margin-top:38px">
-          <div class="it rv d1"><span class="no">/01</span><h3>OneArc BAE Systems</h3><p>Signed partnership; Dronoko AI commercial launch autumn 2026, first pilot revenue H2 FY26.</p></div>
-          <div class="it rv d1"><span class="no">/02</span><h3>Vendor pipeline</h3><p>Active talks with Plexsys and CSG; US office planned.</p></div>
-          <div class="it rv d2"><span class="no">/03</span><h3>Live scale</h3><p>75K+ registered users on rankacy.gg; four production AI models trained and deployed.</p></div>
-          <div class="it rv d2"><span class="no">/04</span><h3>Frontier research</h3><p>Collaboration with Marcel Binz (Centaur AI, Nature); academic partnerships with Charles University, Masaryk University and VŠB-TU Ostrava.</p></div>
-          <div class="it rv d3"><span class="no">/05</span><h3>Capital efficiency</h3><p>$4M deployed to date — data, models, platform and a signed defense partnership at a fraction of US replication cost.</p></div>
+        <div class="kicker rv"><span class="idx">10</span><span>The data moat</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">A dataset no one<br/>can replicate.</h3>
+        <div class="mission-grid" style="margin-top:38px">
+          <div>
+            <div class="steps" style="margin-top:0">
+              <div class="s rv d2"><span class="t">Context</span><p><b>Not just a game record</b>The full context of every situation and the full state of the subject: what they saw, heard, where they stood, what they did — and their entire behavioural history.</p></div>
+              <div class="s rv d3"><span class="t">Instinct</span><p><b>Subcortical reactions under 300 ms</b>Granularity that isolates the behaviours embedded in instinct and emotional memory — and how fast each person's reasoning overrides raw impulse.</p></div>
+              <div class="s rv d4"><span class="t">Patented</span><p><b>Annotated behavioural video</b>Patented technology generates labeled video clips directly from raw data — thousands of years of behavioural footage with full decision context.</p></div>
+            </div>
+          </div>
+          <div class="ledger rv d2">
+            <div class="row"><span class="n" data-count="5000" data-suffix="">0</span><span class="l">Years of human activity, sampled at 64 Hz</span></div>
+            <div class="row"><span class="n" data-count="6" data-suffix="M">0</span><span class="l">Records</span></div>
+            <div class="row"><span class="n" data-count="11" data-suffix="M">0</span><span class="l">People</span></div>
+            <div class="row"><span class="n" data-count="15" data-suffix=" ms">0</span><span class="l">Reaction-time resolution — every 1/64th of a second</span></div>
+            <div class="row"><span class="n">$4M</span><span class="l">Invested to date — multiples to replicate in the US or EU</span></div>
+          </div>
         </div>
       </div>
     </article>
 
-    <!-- 10 · Market -->
+    <!-- 11 · Roadmap -->
     <article class="slide">
       <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">10</span><span>Market</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">The decisive moment<br/>is an unmeasured market.</h3>
-        <div class="index" style="margin-top:38px">
-          <div class="it rv d1"><span class="no">$15B</span><h3>Military simulation &amp; training</h3><p>Lead vertical: ~$14–15B (2025) → ~$22–23B by 2034. The entire industry rehearses the decisive moment — with no credible way to measure performance inside it.</p></div>
-          <div class="it rv d2"><span class="no">$200B</span><h3>Human-like AI bots</h3><p>Fast-growing adjacency across defense simulation and a $200B+ global gaming market converging on believable human-behaving NPCs.</p></div>
-          <div class="it rv d3"><span class="no">$29B</span><h3>Talent assessment</h3><p>Limbic TAM: ~$29B (2025) → ~$57B by 2035. Nearly all spend goes to cognition and personality — none to instinct under pressure. That's the gap.</p></div>
-          <div class="it rv d4"><span class="no">$3B</span><h3>Human-robot interaction</h3><p>$1.4–3B today, growing 19–25% annually — AI-driven safety is becoming the gating factor for shared human-robot spaces.</p></div>
+        <div class="kicker rv"><span class="idx">11</span><span>Roadmap &amp; business model</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">From simulators<br/>to the real world.</h3>
+        <div class="dk-prods">
+          <div class="prod rv d1">
+            <div class="tag">Now · 2026</div>
+            <h3 style="font-size:clamp(1.8rem,2.8vw,2.4rem)">Dual-Use</h3>
+            <p>B2B/B2G licensing through simulator vendors — OneArc's sales force sells Dronoko AI from autumn 2026; SDK for additional vendors. "Simulator + AI coach" for every platform trained in a military simulator.</p>
+          </div>
+          <div class="prod rv d2">
+            <div class="tag">Next · 2027</div>
+            <h3 style="font-size:clamp(1.8rem,2.8vw,2.4rem)">AI Bots</h3>
+            <p>Licensing to defense-sim customers and gaming/iGaming operators — the fastest path to commercial revenue on the same stack.</p>
+          </div>
+          <div class="prod rv d3">
+            <div class="tag">Vision · 2028+</div>
+            <h3 style="font-size:clamp(1.8rem,2.8vw,2.4rem)">Limbic</h3>
+            <p>Selection for roles where seconds decide outcomes — defense, aviation, healthcare — and a safety layer for human-aware machines: robots, autonomous platforms, surgical assistants. First paid pilot expected 2028.</p>
+          </div>
         </div>
-      </div>
-    </article>
-
-    <!-- 11 · Business model -->
-    <article class="slide">
-      <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">11</span><span>Business model &amp; GTM</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">Two branches,<br/>one technical stack.</h3>
-        <div class="steps" style="margin-top:38px;max-width:760px">
-          <div class="s rv d1"><span class="t">Now</span><p><b>Dual-Use licensing</b>B2B/B2G through simulator vendors — OneArc's sales force sells Dronoko AI from autumn 2026; SDK for additional vendors. "Simulator + AI coach" for every platform trained in a military simulator.</p></div>
-          <div class="s rv d2"><span class="t">Near-term</span><p><b>AI Bots</b>Licensing to defense-sim customers and gaming/iGaming operators — the fastest path to commercial revenue on the same stack.</p></div>
-          <div class="s rv d3"><span class="t">2028+</span><p><b>Limbic</b>Selection for roles where seconds decide outcomes (defense, aviation, healthcare) and a safety layer for human-aware machines — robots, autonomous platforms, surgical assistants. First paid pilot expected 2028.</p></div>
-        </div>
-        <p class="note rv d4">Both branches share one stack — marginal compute and engineering investment serves both revenue lines.</p>
+        <p class="note rv d4">Both branches share one technical stack — marginal compute and engineering investment serves both revenue lines.</p>
       </div>
     </article>
 
@@ -772,20 +829,20 @@
       </div>
     </article>
 
-    <!-- 13 · Vision -->
+    <!-- 13 · Why now -->
     <article class="slide">
       <div class="s-wrap">
-        <div class="kicker rv"><span class="idx">13</span><span>Vision</span><span class="ln"></span></div>
-        <h3 class="s-title rv d1">The world-class<br/>Behavioral AI lab.</h3>
+        <div class="kicker rv"><span class="idx">13</span><span>Why now</span><span class="ln"></span></div>
+        <h3 class="s-title rv d1">Three converging forces.</h3>
         <div class="index" style="margin-top:38px">
-          <div class="it rv d1"><span class="no">/01</span><h3>The asset</h3><p>A dataset no one on Earth can replicate, a top-class research team, and signed partnerships with defense and academic leaders.</p></div>
-          <div class="it rv d2"><span class="no">/02</span><h3>The position</h3><p>The category leader in Behavioral AI — the System 1 layer for AI that acts in the real world.</p></div>
-          <div class="it rv d3"><span class="no">/03</span><h3>Exit logic</h3><p>Acquisition by a defense prime — BAE Systems is the natural counterparty as Dronoko scales across its simulation ecosystem — or by a frontier AI lab acquiring the behavioural data and models to move beyond text.</p></div>
+          <div class="it rv d1"><span class="no">/01</span><h3>Generative → physical</h3><p>As AI shifts from content to agentic and physical action, predicting human irrationality goes from a feature to a safety requirement.</p></div>
+          <div class="it rv d2"><span class="no">/02</span><h3>AI × defense</h3><p>The two hottest sectors in technology — Rankacy sits at their intersection, building a layer no incumbent lab is addressing.</p></div>
+          <div class="it rv d3"><span class="no">/03</span><h3>The dual-use precedent</h3><p>Anduril, Palantir and Scale proved defense-first AI creates venture-scale outcomes. We bring the data layer they all lack: instinctive human behaviour.</p></div>
         </div>
       </div>
     </article>
 
-    <!-- 14 · Ask -->
+    <!-- 14 · The Ask -->
     <article class="slide dark">
       <div class="s-wrap">
         <div class="kicker rv"><span class="idx">14</span><span>The ask</span><span class="ln"></span></div>
@@ -796,7 +853,17 @@
           <div class="it rv d3"><span class="no">/03</span><h3>Dual-Use scale-up</h3><p>Deepen Dronoko AI in VBS4/Flowstate, versions for additional OneArc simulators, SDK for new vendors, GTM team — and a US office.</p></div>
           <div class="it rv d4"><span class="no">/04</span><h3>Milestones</h3><p>OneArc commercial revenue · 2+ additional simulator-vendor contracts · Ember in production · first Limbic paid pilot.</p></div>
         </div>
-        <div class="ca rv d5" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:40px">
+      </div>
+    </article>
+
+    <!-- 15 · The Invitation -->
+    <article class="slide dark">
+      <div class="s-wrap">
+        <div class="kicker rv"><span class="idx">15</span><span>The invitation</span><span class="ln"></span></div>
+        <h3 class="dk-h1 rv d1" style="font-size:clamp(2.2rem,5.6vw,4.4rem)">Join the world-class<br/><em>Behavioral AI</em> lab.</h3>
+        <p class="lead rv d2" style="margin-top:26px;max-width:52ch">A dataset no one on Earth can replicate, a top-class research team, and signed defense and academic partnerships — the category leader in Behavioral AI, the System 1 layer for AI that acts in the real world.</p>
+        <p class="note rv d3">Exit logic: acquisition by a defense prime — BAE Systems is the natural counterparty as Dronoko scales across its simulation ecosystem — or by a frontier AI lab acquiring the behavioural data and models to move beyond text.</p>
+        <div class="ca rv d4" style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;margin-top:40px">
           <a class="btn-solid" style="background:var(--c-green);color:var(--ink)" href="mailto:info@rankacy.com">Talk to the founders</a>
           <button class="lnk" id="deck-close-2" style="background:none;border:0;border-bottom:1px solid rgba(238,243,239,.6);color:inherit;cursor:pointer">Back to the site</button>
         </div>
@@ -912,6 +979,7 @@
   tease.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openDeck();}});
   document.getElementById('deck-close').addEventListener('click',closeDeck);
   document.getElementById('deck-close-2').addEventListener('click',closeDeck);
+  document.querySelectorAll('#dk-nav button').forEach(b=>b.addEventListener('click',()=>slides[+b.dataset.slide]?.scrollIntoView({behavior:'smooth'})));
   window.addEventListener('keydown',e=>{
     if(!deck.classList.contains('open'))return;
     if(e.key==='Escape'){closeDeck();return;}
